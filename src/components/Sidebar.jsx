@@ -32,7 +32,7 @@ export default function Sidebar() {
 
         <NavLink to="/profile" className="sidebar-link">
           <span className="sidebar-icon">👤</span>
-          <span>My Profile</span>
+          <span>User Profile</span>
         </NavLink>
 
         <NavLink to="/edit-profile" className="sidebar-link">
