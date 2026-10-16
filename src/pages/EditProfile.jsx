@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Toast from "../components/Toast";
@@ -64,7 +65,6 @@ export default function EditProfile() {
       newErrors.email = "Enter a valid email address";
     }
 
-    // Check whether another account already uses this email
     const duplicateEmail = registeredUsers.some(
       (user) =>
         user.email.toLowerCase() === normalizedEmail &&
@@ -72,7 +72,8 @@ export default function EditProfile() {
     );
 
     if (duplicateEmail) {
-      newErrors.email = "This email is already registered to another account";
+      newErrors.email =
+        "This email is already registered to another account";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -130,12 +131,7 @@ export default function EditProfile() {
       <Sidebar />
 
       <main className="edit-profile-content">
-        <header className="edit-profile-header">
-          <div>
-            <h1>Edit Profile</h1>
-            <p>Update your personal information.</p>
-          </div>
-        </header>
+        <Header title="Edit Profile" />
 
         <section className="edit-profile-card">
           <div className="edit-profile-avatar">

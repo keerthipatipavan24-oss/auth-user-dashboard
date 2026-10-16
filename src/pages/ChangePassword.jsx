@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Toast from "../components/Toast";
@@ -82,12 +84,10 @@ export default function ChangePassword() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-
       setToast({
         message: Object.values(newErrors)[0],
         type: "error",
       });
-
       return;
     }
 
@@ -125,10 +125,7 @@ export default function ChangePassword() {
       <Sidebar />
 
       <main className="change-password-content">
-        <header className="change-password-header">
-          <h1>Change Password</h1>
-          <p>Update your password to keep your account secure.</p>
-        </header>
+        <Header title="Change Password" />
 
         <section className="change-password-card">
           <div className="change-password-icon">🔒</div>
@@ -195,4 +192,5 @@ export default function ChangePassword() {
       )}
     </div>
   );
-} 
+}
+ 

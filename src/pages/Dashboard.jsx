@@ -1,5 +1,7 @@
+
 import { Link, Navigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 import Card from "../components/Card";
 import "./Dashboard.css";
 
@@ -31,16 +33,12 @@ export default function Dashboard() {
       <Sidebar />
 
       <main className="dashboard-content">
-        <header className="dashboard-header">
-          <div>
-            <h1>Welcome back, {userName}!</h1>
-            <p>Here is your account overview.</p>
-          </div>
+        <Header title="Dashboard" />
 
-          <div className="user-avatar">
-            {userName.charAt(0).toUpperCase()}
-          </div>
-        </header>
+        <section className="dashboard-welcome">
+          <h2>Welcome back, {userName}!</h2>
+          <p>Here is your account overview.</p>
+        </section>
 
         <section className="dashboard-cards">
           <Card title="Account Status" value="Active" icon="✅" />
@@ -82,4 +80,5 @@ export default function Dashboard() {
       </main>
     </div>
   );
-} 
+}
+ 

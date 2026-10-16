@@ -1,6 +1,7 @@
 
 import { Link, Navigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 import "./MyProfile.css";
 
 export default function MyProfile() {
@@ -33,18 +34,7 @@ export default function MyProfile() {
       <Sidebar />
 
       <main className="profile-content">
-        <header className="profile-header">
-          <div>
-            <h1>User Profile</h1>
-            <p>View your personal information and account details.</p>
-          </div>
-
-          {hasProfile && (
-            <Link to="/edit-profile" className="profile-edit-button">
-              Edit Profile
-            </Link>
-          )}
-        </header>
+        <Header title="My Profile" />
 
         {!hasProfile ? (
           <section className="profile-card profile-error-state">
@@ -69,6 +59,10 @@ export default function MyProfile() {
               <h2>{userName}</h2>
               <p className="profile-email">{userEmail}</p>
               <span className="profile-status">Active Account</span>
+
+              <Link to="/edit-profile" className="profile-edit-button">
+                Edit Profile
+              </Link>
             </div>
 
             <div className="profile-information">
@@ -113,3 +107,4 @@ export default function MyProfile() {
     </div>
   );
 }
+ 
