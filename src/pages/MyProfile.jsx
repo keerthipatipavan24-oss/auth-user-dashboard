@@ -35,7 +35,7 @@ export default function MyProfile() {
       <main className="profile-content">
         <header className="profile-header">
           <div>
-            <h1>My Profile</h1>
+            <h1>User Profile</h1>
             <p>View your personal information and account details.</p>
           </div>
 
