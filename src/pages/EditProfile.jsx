@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
@@ -27,6 +28,7 @@ export default function EditProfile() {
   );
 
   const [name, setName] = useState(currentUser?.name || "");
+  const [mobile, setMobile] = useState(currentUser?.mobile || "");
   const [email, setEmail] = useState(currentUser?.email || "");
 
   useEffect(() => {
@@ -44,9 +46,16 @@ export default function EditProfile() {
 
     const newErrors = {};
     const normalizedEmail = email.trim().toLowerCase();
+    const normalizedMobile = mobile.trim();
 
     if (!name.trim()) {
       newErrors.name = "Full name is required";
+    }
+
+    if (!normalizedMobile) {
+      newErrors.mobile = "Mobile number is required";
+    } else if (!/^[6-9]\d{9}$/.test(normalizedMobile)) {
+      newErrors.mobile = "Enter a valid 10-digit Indian mobile number";
     }
 
     if (!normalizedEmail) {
@@ -86,6 +95,7 @@ export default function EditProfile() {
     const updatedUser = {
       ...currentUser,
       name: name.trim(),
+      mobile: normalizedMobile,
       email: normalizedEmail,
     };
 
@@ -98,6 +108,7 @@ export default function EditProfile() {
     const updatedSession = {
       ...loggedInUser,
       name: updatedUser.name,
+      mobile: updatedUser.mobile,
       email: updatedUser.email,
     };
 
@@ -141,10 +152,27 @@ export default function EditProfile() {
               id="edit-name"
               label="Full Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setErrors((prev) => ({ ...prev, name: "" }));
+              }}
               placeholder="Enter your full name"
               error={errors.name}
               autoComplete="name"
+            />
+
+            <Input
+              id="edit-mobile"
+              label="Mobile Number"
+              type="tel"
+              value={mobile}
+              onChange={(e) => {
+                setMobile(e.target.value);
+                setErrors((prev) => ({ ...prev, mobile: "" }));
+              }}
+              placeholder="Enter your 10-digit mobile number"
+              error={errors.mobile}
+              autoComplete="tel"
             />
 
             <Input
@@ -152,7 +180,10 @@ export default function EditProfile() {
               label="Email Address"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrors((prev) => ({ ...prev, email: "" }));
+              }}
               placeholder="Enter your email address"
               error={errors.email}
               autoComplete="email"
@@ -182,4 +213,5 @@ export default function EditProfile() {
       )}
     </div>
   );
-} 
+}
+ 

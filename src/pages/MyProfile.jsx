@@ -1,3 +1,4 @@
+
 import { Link, Navigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "./MyProfile.css";
@@ -19,6 +20,7 @@ export default function MyProfile() {
 
   const userName = currentUser?.name || loggedInUser?.name || "User";
   const userEmail = currentUser?.email || loggedInUser?.email || "";
+  const userMobile = currentUser?.mobile || loggedInUser?.mobile || "";
 
   const hasProfile = Boolean(currentUser && userEmail);
 
@@ -84,6 +86,11 @@ export default function MyProfile() {
                 </div>
 
                 <div className="profile-info-item">
+                  <span>Mobile Number</span>
+                  <p>{userMobile || "Not provided"}</p>
+                </div>
+
+                <div className="profile-info-item">
                   <span>Account Status</span>
                   <p>Active</p>
                 </div>
@@ -105,4 +112,4 @@ export default function MyProfile() {
       </main>
     </div>
   );
-} 
+}

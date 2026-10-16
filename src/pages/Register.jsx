@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
@@ -6,6 +7,7 @@ import "./Register.css";
 
 export default function Register() {
   const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,14 +20,22 @@ export default function Register() {
     e.preventDefault();
 
     const newErrors = {};
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedMobile = mobile.trim();
 
     if (!name.trim()) {
       newErrors.name = "Name is required";
     }
 
-    if (!email.trim()) {
+    if (!normalizedMobile) {
+      newErrors.mobile = "Mobile number is required";
+    } else if (!/^[6-9]\d{9}$/.test(normalizedMobile)) {
+      newErrors.mobile = "Enter a valid 10-digit Indian mobile number";
+    }
+
+    if (!normalizedEmail) {
       newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       newErrors.email = "Enter a valid email";
     }
 
@@ -46,14 +56,10 @@ export default function Register() {
       return;
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
-
-    // Get all registered accounts
     const registeredUsers = JSON.parse(
       localStorage.getItem("registeredUsers") || "[]"
     );
 
-    // Prevent duplicate email registration
     const emailExists = registeredUsers.some(
       (user) => user.email.toLowerCase() === normalizedEmail
     );
@@ -65,15 +71,14 @@ export default function Register() {
       return;
     }
 
-    // Create the new account
     const newUser = {
       id: Date.now().toString(),
       name: name.trim(),
+      mobile: normalizedMobile,
       email: normalizedEmail,
       password,
     };
 
-    // Add the account without replacing existing users
     registeredUsers.push(newUser);
 
     localStorage.setItem(
@@ -81,7 +86,6 @@ export default function Register() {
       JSON.stringify(registeredUsers)
     );
 
-    // Clear old single-account data after successful migration
     localStorage.removeItem("registeredUser");
 
     navigate("/login");
@@ -105,6 +109,20 @@ export default function Register() {
               placeholder="Enter your full name"
               error={errors.name}
               autoComplete="name"
+            />
+
+            <Input
+              id="register-mobile"
+              label="Mobile Number"
+              type="tel"
+              value={mobile}
+              onChange={(e) => {
+                setMobile(e.target.value);
+                setErrors((prev) => ({ ...prev, mobile: "" }));
+              }}
+              placeholder="Enter your 10-digit mobile number"
+              error={errors.mobile}
+              autoComplete="tel"
             />
 
             <Input
@@ -163,4 +181,5 @@ export default function Register() {
       </div>
     </div>
   );
-} 
+}
+ 
