@@ -34,7 +34,7 @@ export default function MyProfile() {
       <Sidebar />
 
       <main className="profile-content">
-        <Header title="My Profile" />
+        <Header title="User Profile" />
 
         {!hasProfile ? (
           <section className="profile-card profile-error-state">
