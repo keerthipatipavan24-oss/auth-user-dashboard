@@ -1,0 +1,45 @@
+/* Reusable Button */
+
+.common-button {
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover Effect */
+.common-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Click Effect */
+.common-button:active {
+  transform: translateY(0);
+}
+
+/* Keyboard Focus */
+.common-button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+/* Disabled Button */
+.common-button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.common-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+} 
+
